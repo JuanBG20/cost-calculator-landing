@@ -1,0 +1,19 @@
+* {
+  font-family: "Inter Variable", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --primary-color: #a4ff00;
+  --secondary-color: #4682b4;
+  --container-color: #201f1f;
+  --border-color: #414a35;
+
+  --secondary-text-color: #c1caaf;
+}
+
+html {
+  scroll-behavior: smooth;
+}
