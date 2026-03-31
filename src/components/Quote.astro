@@ -1,0 +1,125 @@
+---
+import { Image } from "astro:assets";
+/* import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
+import NoteIcon from './icons/NoteIcon.astro';
+import PaletteIcon from './icons/PaletteIcon.astro';
+import TextIcon from './icons/TextIcon.astro'; */
+
+import ereaderImage from "../assets/image.png";
+import CheckIcon from "./icons/CheckIcon.astro";
+
+/* const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang); */
+---
+
+<div class="ereader" id="ereader">
+  <div class="ereader-image reveal-right">
+    <Image src={ereaderImage} alt="E-Reader" />
+  </div>
+
+  <div class="ereader-info">
+    <div>
+      <p class="subtitle reveal-left">Análisis Profundo</p>
+      <h2 class="reveal">Visualizá cada centavo de tu esfuerzo</h2>
+    </div>
+
+    <p>
+      Detrás de cada proyecto terminado hay inversión en materiales y, sobre
+      todo, tu talento. Esta calculadora está pensada para que dejes de adivinar
+      y empieces a cobrar con total seguridad, basándote en dos datos reales y
+      concretos: cuánto te cuesta el material y cuánto querés ganar.
+    </p>
+
+    <ul class="ereader-info-list">
+      <li class="reveal-left"><CheckIcon /> Inventario inteligente</li>
+      <li class="reveal-left"><CheckIcon /> Márgenes claros y directos</li>
+      <li class="reveal-left"><CheckIcon /> Cotizaciones al instante</li>
+    </ul>
+  </div>
+</div>
+
+<style>
+  .ereader {
+    background-color: var(--card-color);
+
+    display: flex;
+    gap: 32px;
+
+    padding: 96px 48px;
+  }
+
+  .ereader-info {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    width: 50%;
+  } /* 
+
+  .ereader-info h2 {
+    max-width: 50%;
+  }
+
+  .ereader-info p {
+    max-width: 80%;
+  } */
+
+  .ereader-info-list {
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    gap: 16px;
+  }
+
+  .ereader-info-list li {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    color: #fff;
+  }
+
+  .ereader-image {
+    width: 50%;
+  }
+
+  .ereader-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: bottom;
+    display: block;
+  }
+
+  .ereader-info-list li:nth-child(1) {
+    transition-delay: 0.1s;
+  }
+  .ereader-info-list li:nth-child(2) {
+    transition-delay: 0.2s;
+  }
+  .ereader-info-list li:nth-child(3) {
+    transition-delay: 0.3s;
+  }
+
+  @media (max-width: 48rem) {
+    .ereader {
+      flex-direction: column;
+    }
+
+    .ereader-info {
+      width: 100%;
+      padding: 32px;
+    }
+
+    .ereader-info h2,
+    .ereader-info p {
+      max-width: 100%;
+    }
+
+    .ereader-image {
+      width: 100%;
+      min-height: 350px;
+    }
+  }
+</style>
