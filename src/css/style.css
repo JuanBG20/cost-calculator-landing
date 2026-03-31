@@ -60,14 +60,19 @@ body {
 }
 
 .subtitle {
-  margin-top: 16px;
+  margin-bottom: 16px;
+
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 1.5px;
 }
 
 .card-text {
   font-size: 14px;
   font-weight: 300;
+  max-width: 90%;
 
-  color: var(--secondary-color);
+  color: var(--secondary-text-color);
 }
 
 .highlight {
@@ -86,9 +91,9 @@ body {
   align-items: center;
   justify-content: center;
 
-  border-radius: 16px;
+  border-radius: 4px;
 
-  background-color: rgba(114, 9, 183, 0.1);
+  background-color: rgba(202, 253, 0, 0.1);
 }
 
 .logo {

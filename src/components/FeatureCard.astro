@@ -1,0 +1,53 @@
+---
+import PrintIcon from "./icons/PrintIcon.astro";
+import LaserIcon from "./icons/LaserIcon.astro";
+import HistoryIcon from "./icons/HistoryIcon.astro";
+
+const icons = {
+  printer: PrintIcon,
+  laser: LaserIcon,
+  history: HistoryIcon,
+};
+
+type IconKey = keyof typeof icons;
+
+interface Props {
+  title: string;
+  description: string;
+  icon: IconKey;
+}
+
+const { title, description, icon } = Astro.props;
+
+const IconComponent = icons[icon];
+---
+
+<div class="feature-card reveal-left">
+  <span class="background-icon">
+    <IconComponent class="icon" />
+  </span>
+
+  <h4>{title}</h4>
+  <p class="card-text">
+    {description}
+  </p>
+</div>
+
+<style>
+  .feature-card {
+    background-color: var(--card-color);
+
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+
+    padding: 32px 48px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .feature-card h4 {
+    text-transform: uppercase;
+  }
+</style>

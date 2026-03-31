@@ -1,0 +1,81 @@
+---
+/* import { getLangFromUrl, useTranslations } from '../i18n/utils'; */
+
+import FeatureCard from "./FeatureCard.astro";
+
+/* const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang); */
+
+interface Feature {
+  iconName: "printer" | "laser" | "history";
+  title: string;
+  description: string;
+}
+
+const features: Feature[] = [
+  {
+    iconName: "printer",
+    title: "Impresión 3D",
+    description:
+      "Cálculos exactos, sin vueltas. Ingresá el peso de tu pieza y obtené el costo real basado en el precio por gramo de filamento o resina. Matemática simple y efectiva.",
+  },
+  {
+    iconName: "laser",
+    title: "Corte Láser & CNC",
+    description:
+      "Presupuestos a medida. Cotizá tus cortes en cualquier material basándote en el área utilizada y el costo exacto de tu placa. Ni un centímetro de pérdida.",
+  },
+  {
+    iconName: "history",
+    title: "Gestión de Presupuestos",
+    description:
+      "Tu negocio, organizado. Guardá el historial de cotizaciones, armá tu base de clientes y tené tu inventario de materiales siempre a mano para cotizar en segundos.",
+  },
+];
+---
+
+<div class="features" id="features">
+  <p class="subtitle reveal-left">Módulos especializados</p>
+  <h2 class="reveal">
+    Fabricación sin <span class="highlight">Puntos Ciegos</span>
+  </h2>
+
+  <div class="features-cards">
+    {
+      features.map((card) => (
+        <FeatureCard
+          title={card.title}
+          description={card.description}
+          icon={card.iconName}
+        />
+      ))
+    }
+  </div>
+</div>
+
+<style>
+  .features {
+    padding: 96px 48px;
+  }
+
+  .features-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+
+    margin-top: 64px;
+  }
+
+  .features-cards :global(.feature-card:nth-child(1)) {
+    transition-delay: 0.1s;
+  }
+  .features-cards :global(.feature-card:nth-child(2)) {
+    transition-delay: 0.2s;
+  }
+  .features-cards :global(.feature-card:nth-child(3)) {
+    transition-delay: 0.3s;
+  }
+  .features-cards :global(.feature-card:nth-child(4)) {
+    transition-delay: 0.4s;
+  }
+</style>
