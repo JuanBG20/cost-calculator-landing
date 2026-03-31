@@ -1,6 +1,8 @@
 ---
 import "@fontsource-variable/inter";
 import "../css/style.css";
+import Navbar from "../components/Navbar.astro";
+import Footer from "../components/Footer.astro";
 ---
 
 <!doctype html>
@@ -14,6 +16,8 @@ import "../css/style.css";
     <title>J&C Cost Calculator</title>
   </head>
   <body>
+    <Navbar />
     <slot />
+    <Footer />
   </body>
 </html>
