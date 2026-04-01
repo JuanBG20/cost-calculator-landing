@@ -1,16 +1,12 @@
 ---
 import { Image } from "astro:assets";
-/* import { getLangFromUrl, useTranslations } from '../i18n/utils';
-
-import NoteIcon from './icons/NoteIcon.astro';
-import PaletteIcon from './icons/PaletteIcon.astro';
-import TextIcon from './icons/TextIcon.astro'; */
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 import ereaderImage from "../assets/image.png";
 import CheckIcon from "./icons/CheckIcon.astro";
 
-/* const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang); */
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div class="ereader" id="ereader">
@@ -20,21 +16,18 @@ const t = useTranslations(lang); */
 
   <div class="ereader-info">
     <div>
-      <p class="subtitle reveal-left">Análisis Profundo</p>
-      <h2 class="reveal">Visualizá cada centavo de tu esfuerzo</h2>
+      <p class="subtitle reveal-left">{t("quote.subtitle")}</p>
+      <h2 class="reveal" set:html={t("quote.title")} />
     </div>
 
     <p>
-      Detrás de cada proyecto terminado hay inversión en materiales y, sobre
-      todo, tu talento. Esta calculadora está pensada para que dejes de adivinar
-      y empieces a cobrar con total seguridad, basándote en dos datos reales y
-      concretos: cuánto te cuesta el material y cuánto querés ganar.
+      {t("quote.desc")}
     </p>
 
     <ul class="ereader-info-list">
-      <li class="reveal-left"><CheckIcon /> Inventario inteligente</li>
-      <li class="reveal-left"><CheckIcon /> Márgenes claros y directos</li>
-      <li class="reveal-left"><CheckIcon /> Cotizaciones al instante</li>
+      <li class="reveal-left"><CheckIcon /> {t("quote.feature.inventory")}</li>
+      <li class="reveal-left"><CheckIcon /> {t("quote.feature.margin")}</li>
+      <li class="reveal-left"><CheckIcon /> {t("quote.feature.quotes")}</li>
     </ul>
   </div>
 </div>
@@ -55,15 +48,7 @@ const t = useTranslations(lang); */
     gap: 32px;
 
     width: 50%;
-  } /* 
-
-  .ereader-info h2 {
-    max-width: 50%;
   }
-
-  .ereader-info p {
-    max-width: 80%;
-  } */
 
   .ereader-info-list {
     display: flex;

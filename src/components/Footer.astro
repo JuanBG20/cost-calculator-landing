@@ -1,0 +1,191 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+import DownloadCard from "./DownloadCard.astro";
+import LanguagePicker from "./LanguagePicker.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const stores = [
+  {
+    store: "App Store",
+    link: "#hero",
+    isPhone: true,
+  },
+  {
+    store: "Play Store",
+    link: "https://play.google.com/store/apps/details?id=ar.com.juanbg.mimirbooks",
+    isPhone: true,
+  },
+];
+---
+
+<footer id="footer">
+  <div class="footer-info">
+    <div class="footer-section-logo">
+      <h3 class="logo">J&C Cost Calculator</h3>
+      <p class="footer-subtitle">
+        {t("footer.desc")}
+      </p>
+    </div>
+
+    <div class="footer-section-links">
+      <h5>{t("footer.links")}</h5>
+      <ul class="footer-info-lists">
+        <li>
+          <a
+            href="https://thunder-bar-fd4.notion.site/Privacy-Policy-Mimir-Books-App-2fcd37e591a3804a8806d071fd99212d?pvs=74"
+            target="_blank">{t("footer.privacy")}</a
+          >
+        </li>
+        <li><a href="" target="_blank">{t("footer.terms")}</a></li>
+        <li>
+          <a href="https://forms.gle/FeVSLWqn4s1zLmBF8" target="_blank"
+            >{t("footer.deleteAccount")}</a
+          >
+        </li>
+        <li>
+          <a href="mailto:contacto.dedalostudio@gmail.com" target="_blank"
+            >{t("footer.support")}</a
+          >
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-section-social">
+      <h5>Social</h5>
+
+      <ul class="footer-info-lists">
+        <li>
+          <a href="">Instagram</a>
+        </li><li>
+          <a href="">X (Twitter)</a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="footer-section-downloads">
+      <h5>{t("footer.download")}</h5>
+      <ul class="footer-info-lists">
+        {
+          stores.map((item) => (
+            <li>
+              <DownloadCard
+                store={item.store}
+                link={item.link}
+                isPhone={item.isPhone ?? true}
+              />
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </div>
+
+  <hr />
+
+  <div class="footer-metadata">
+    <p>© 2026 Dédalo Studio. {t("footer.copyright")}</p>
+
+    <p>
+      {t("footer.developer")}
+      <span class="footer-highlight">Juan Bautista Galván</span>
+    </p>
+  </div>
+
+  <div class="footer-lang">
+    <LanguagePicker />
+  </div>
+</footer>
+
+<style>
+  footer {
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+
+    padding: 48px 80px;
+
+    background-color: #000;
+  }
+
+  .footer-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 48px;
+    align-items: start;
+  }
+
+  .footer-info h5 {
+    margin-bottom: 24px;
+  }
+
+  .footer-info .footer-subtitle {
+    max-width: 80%;
+
+    margin-top: 16px;
+  }
+
+  .footer-info p {
+    color: var(--secondary-text-color);
+    line-height: 1.2;
+    font-size: 14px;
+  }
+
+  .footer-info-lists {
+    display: flex;
+
+    flex-direction: column;
+    align-items: start;
+
+    gap: 16px;
+  }
+
+  .footer-info-lists li {
+    width: 100%;
+  }
+
+  .footer-info-lists li a {
+    color: var(--secondary-text-color);
+
+    font-weight: 200;
+  }
+
+  .footer-metadata {
+    width: 100%;
+
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .footer-metadata p {
+    color: var(--secondary-text-color);
+
+    font-size: 14px;
+  }
+
+  .footer-metadata .footer-highlight {
+    font-weight: 400;
+    color: var(--primary-color);
+  }
+
+  @media (max-width: 48rem) {
+    footer {
+      padding: 48px 24px;
+    }
+
+    .footer-info .footer-subtitle {
+      max-width: 100%;
+      margin: 16px auto 0;
+      text-align: start;
+    }
+
+    .footer-metadata {
+      flex-direction: column;
+      gap: 12px;
+    }
+  }
+</style>

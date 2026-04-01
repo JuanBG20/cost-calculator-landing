@@ -1,19 +1,28 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+---
+
 <nav>
   <p class="logo">J&C Cost Calculator</p>
 
   <ul class="navbar-content" id="navbar-content">
     <li>
-      <a href="#">Inicio</a>
+      <a href="#hero">{t("nav.home")}</a>
     </li>
     <li>
-      <a href="#">Features</a>
+      <a href="#features">{t("nav.features")}</a>
     </li>
     <li>
-      <a href="#">Quote</a>
+      <a href="#quote">{t("nav.quote")}</a>
     </li>
   </ul>
 
-  <button class="primary-button" id="navbar-button">Get Started</button>
+  <button class="primary-button" id="navbar-button"
+    >{t("nav.getStarted")}</button
+  >
 </nav>
 
 <style>

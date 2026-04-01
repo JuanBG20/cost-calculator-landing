@@ -1,0 +1,55 @@
+---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+
+import DesktopIcon from "./icons/DesktopIcon.astro";
+import PhoneIcon from "./icons/PhoneIcon.astro";
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const { store, link, isPhone } = Astro.props;
+---
+
+<div class="download-card">
+  <a href={link}>
+    <span class="icon-wrapper"
+      >{isPhone ? <PhoneIcon class="icon" /> : <DesktopIcon />}</span
+    >
+
+    <p>
+      {t("footer.downloadOn")}
+      <span class="download-card-store">{store}</span>
+    </p></a
+  >
+</div>
+
+<style>
+  .download-card {
+    background-color: var(--container-color);
+
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+
+    padding: 8px 12px;
+  }
+
+  .download-card a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .download-card p {
+    font-size: 10px;
+    font-weight: 100;
+    text-transform: uppercase;
+  }
+
+  .download-card-store {
+    display: block;
+
+    text-transform: capitalize;
+    font-size: 12px;
+    font-weight: 700;
+  }
+</style>

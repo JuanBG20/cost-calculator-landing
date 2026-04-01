@@ -1,0 +1,47 @@
+---
+import { languages } from "../i18n/ui";
+import { getLangFromUrl } from "../i18n/utils";
+
+const currentLang = getLangFromUrl(Astro.url);
+---
+
+<div class="lang-container">
+  <ul class="lang-list">
+    {
+      Object.entries(languages).map(([lang, label]) => (
+        <li>
+          <a
+            href={lang == "es" ? "/" : `/${lang}/`}
+            class={currentLang === lang ? "active" : ""}
+          >
+            {label}
+          </a>
+        </li>
+      ))
+    }
+  </ul>
+</div>
+
+<style>
+  .lang-container {
+    display: flex;
+    justify-content: end;
+  }
+
+  .lang-list {
+    display: flex;
+    gap: 12px;
+  }
+
+  .lang-list a {
+    color: var(--secondary-text-color);
+    font-weight: 400;
+  }
+
+  .lang-list a.active {
+    font-weight: 300;
+    color: var(--primary-color);
+
+    pointer-events: none;
+  }
+</style>

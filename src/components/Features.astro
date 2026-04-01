@@ -1,10 +1,10 @@
 ---
-/* import { getLangFromUrl, useTranslations } from '../i18n/utils'; */
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
 import FeatureCard from "./FeatureCard.astro";
 
-/* const lang = getLangFromUrl(Astro.url);
-const t = useTranslations(lang); */
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 
 interface Feature {
   iconName: "printer" | "laser" | "history";
@@ -15,38 +15,33 @@ interface Feature {
 const features: Feature[] = [
   {
     iconName: "printer",
-    title: "Impresión 3D",
-    description:
-      "Cálculos exactos, sin vueltas. Ingresá el peso de tu pieza y obtené el costo real basado en el precio por gramo de filamento o resina. Matemática simple y efectiva.",
+    title: "featureCard.printing.title",
+    description: "featureCard.printing.desc",
   },
   {
     iconName: "laser",
-    title: "Corte Láser & CNC",
-    description:
-      "Presupuestos a medida. Cotizá tus cortes en cualquier material basándote en el área utilizada y el costo exacto de tu placa. Ni un centímetro de pérdida.",
+    title: "featureCard.laser.title",
+    description: "featureCard.laser.desc",
   },
   {
     iconName: "history",
-    title: "Gestión de Presupuestos",
-    description:
-      "Tu negocio, organizado. Guardá el historial de cotizaciones, armá tu base de clientes y tené tu inventario de materiales siempre a mano para cotizar en segundos.",
+    title: "featureCard.history.title",
+    description: "featureCard.history.desc",
   },
 ];
 ---
 
 <div class="features" id="features">
-  <p class="subtitle reveal-left">Módulos especializados</p>
-  <h2 class="reveal">
-    Fabricación sin <span class="highlight">Puntos Ciegos</span>
-  </h2>
+  <p class="subtitle reveal-left">{t("features.subtitle")}</p>
+  <h2 class="reveal" set:html={t("features.title")} />
 
   <div class="features-cards">
     {
       features.map((card) => (
         <FeatureCard
-          title={card.title}
-          description={card.description}
-          icon={card.iconName}
+          title={t(card.title as any)}
+          description={t(card.description as any)}
+          icon={card.iconName as any}
         />
       ))
     }

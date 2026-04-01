@@ -1,157 +1,169 @@
 ---
+import { getLangFromUrl, useTranslations } from "../i18n/utils";
+import { Image, getImage } from "astro:assets";
+
+type AstroImageModule = { default: ImageMetadata };
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 import RightArrow from "./icons/RightArrow.astro";
+
+const images = import.meta.glob<AstroImageModule>("../assets/hero-*.png");
+
+const imgPath = `../assets/hero-${lang}.png`;
+
+const imgModule = await images[imgPath]();
+
+const imgData = await getImage({
+  src: imgModule.default,
+  format: "webp",
+  quality: 80,
+});
 ---
 
 <div class="hero" id="hero">
   <div class="hero-info">
-    <p class="version-tag">Engineering precision v2.4</p>
+    <p class="version-tag">{t("hero.version")}</p>
 
-    <h1 class="reveal">
-      Calculá tu<br />
-      <span class="highlight">Éxito</span>
-    </h1>
+    <h1 class="reveal" set:html={t("hero.title")} />
 
     <p class="hero-text reveal-left">
-      Transformá tus horas de taller en rentabilidad pura. La herramienta
-      definitiva para makers que exigen precisión industrial en sus costos.
+      {t("hero.subtitle")}
     </p>
 
     <div class="hero-buttons reveal-left">
       <button class="primary-button" id="get-started-btn"
-        >Empezá a calcular <RightArrow />
+        >{t("hero.button")} <RightArrow />
       </button>
     </div>
+  </div>
 
-    <!-- <picture class="hero-picture reveal-right">
-    <source
-      media="(max-width: 48rem)"
-      srcset={mobileImgData.src}
-      type="image/webp"
-    />
+  <picture class="hero-picture reveal-right">
+    <source media="(max-width: 48rem)" srcset={imgData.src} type="image/webp" />
 
     <Image
-      src={desktopImgModule.default}
-      alt={t('alt.hero')}
+      src={imgModule.default}
+      alt={t("alt.hero")}
       loading="eager"
       class="hero-image"
     />
-  </picture> -->
-  </div>
+  </picture>
+</div>
 
-  <style>
+<style>
+  .hero {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-grow: 1;
+    gap: 48px;
+
+    padding: 48px;
+
+    background-color: var(--container-color);
+    background-image: linear-gradient(
+      90deg,
+      var(--container-color) 50%,
+      var(--secondary-color) 100%
+    );
+
+    min-height: calc(100vh - 70px);
+  }
+
+  .hero-info {
+    max-width: 50vw;
+
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .hero-buttons {
+    display: flex;
+    gap: 16px;
+  }
+
+  .hero-text {
+    max-width: 85%;
+  }
+
+  .version-tag {
+    width: fit-content;
+
+    background-color: var(--card-color);
+    color: var(--primary-color);
+
+    display: inline;
+
+    font-size: 12px;
+    font-weight: 300;
+
+    padding: 4px 16px;
+    border-radius: 2px;
+    border: 1px solid var(--border-color);
+
+    text-transform: uppercase;
+  }
+
+  .primary-button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+
+    font-weight: 600;
+  }
+
+  .hero-picture {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+
+    width: 100%;
+  }
+
+  .hero-image {
+    height: 70svh;
+    max-height: 650px;
+    width: auto;
+
+    object-fit: cover;
+    object-position: center;
+
+    border-radius: 48px;
+  }
+
+  @media (max-width: 40rem) {
+    .hero-buttons {
+      flex-direction: column;
+    }
+  }
+
+  @media (max-width: 48rem) {
     .hero {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-grow: 1;
+      flex-direction: column;
+      align-items: start;
       gap: 48px;
-
-      padding: 48px;
-
-      background-color: var(--container-color);
-      background-image: linear-gradient(
-        90deg,
-        var(--container-color) 50%,
-        var(--secondary-color) 100%
-      );
-
-      min-height: calc(100vh - 70px);
     }
 
     .hero-info {
-      max-width: 50vw;
-
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    }
-
-    .hero-buttons {
-      display: flex;
-      gap: 16px;
+      max-width: 100%;
+      align-items: start;
     }
 
     .hero-text {
-      max-width: 85%;
-    }
-
-    .version-tag {
-      width: fit-content;
-
-      background-color: var(--card-color);
-      color: var(--primary-color);
-
-      display: inline;
-
-      font-size: 12px;
-      font-weight: 300;
-
-      padding: 4px 16px;
-      border-radius: 2px;
-      border: 1px solid var(--border-color);
-
-      text-transform: uppercase;
-    }
-
-    .primary-button {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 12px;
-
-      font-weight: 600;
+      max-width: 100%;
     }
 
     .hero-picture {
-      display: flex;
       justify-content: end;
-      align-items: center;
-
-      width: 100%;
     }
 
     .hero-image {
-      height: 70svh;
-      max-height: 650px;
-      width: auto;
-
+      width: 100%;
+      height: auto;
       object-fit: cover;
-      object-position: center;
-
-      border-radius: 48px;
     }
-
-    @media (max-width: 40rem) {
-      .hero-buttons {
-        flex-direction: column;
-      }
-    }
-
-    @media (max-width: 48rem) {
-      .hero {
-        flex-direction: column;
-        align-items: start;
-        gap: 48px;
-      }
-
-      .hero-info {
-        max-width: 100%;
-        align-items: start;
-      }
-
-      .hero-text {
-        max-width: 100%;
-      }
-
-      .hero-picture {
-        justify-content: end;
-      }
-
-      .hero-image {
-        width: 100%;
-        height: auto;
-        object-fit: cover;
-      }
-    }
-  </style>
-</div>
+  }
+</style>
