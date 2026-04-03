@@ -1,6 +1,8 @@
 ---
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
+import MenuIcon from "./icons/MenuIcon.astro";
+
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 ---
@@ -8,21 +10,27 @@ const t = useTranslations(lang);
 <nav>
   <p class="logo">J&C Cost Calculator</p>
 
-  <ul class="navbar-content" id="navbar-content">
-    <li>
-      <a href="#hero">{t("nav.home")}</a>
-    </li>
-    <li>
-      <a href="#features">{t("nav.features")}</a>
-    </li>
-    <li>
-      <a href="#quote">{t("nav.quote")}</a>
-    </li>
-  </ul>
+  <button id="menu-toggle" class="hamburger" aria-label="Menú">
+    <MenuIcon />
+  </button>
 
-  <button class="primary-button" id="navbar-button"
-    >{t("nav.getStarted")}</button
-  >
+  <div class="navbar-content" id="navbar-content">
+    <ul class="navbar-list">
+      <li>
+        <a href="#hero">{t("nav.home")}</a>
+      </li>
+      <li>
+        <a href="#features">{t("nav.features")}</a>
+      </li>
+      <li>
+        <a href="#quote">{t("nav.quote")}</a>
+      </li>
+    </ul>
+
+    <button class="primary-button" id="navbar-button"
+      >{t("nav.getStarted")}</button
+    >
+  </div>
 </nav>
 
 <style>
@@ -38,9 +46,12 @@ const t = useTranslations(lang);
     background-color: var(--container-color);
 
     height: 70px;
+
+    position: relative;
+    z-index: 50;
   }
 
-  .nabvar-content {
+  .navbar-content {
     display: contents;
   }
 
@@ -54,4 +65,74 @@ const t = useTranslations(lang);
 
     color: #adaaaa;
   }
+
+  @media (max-width: 48rem) {
+    #menu-toggle.open {
+      transform: rotate(90deg);
+    }
+
+    .hamburger {
+      display: block;
+
+      transition: transform 0.3s ease;
+    }
+
+    .navbar-content {
+      display: flex;
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+
+      transform: translateY(-10px) scale(0.95);
+
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+
+      position: absolute;
+      top: 100%;
+      left: 0;
+
+      width: 100%;
+
+      background-color: var(--container-color);
+      backdrop-filter: blur(12px);
+
+      border: 1px solid var(--border-color);
+
+      padding: 32px 24px;
+
+      flex-direction: column;
+      gap: 32px;
+    }
+
+    .navbar-content.open {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+
+      transform: translateY(0) scale(1);
+    }
+
+    ul {
+      flex-direction: column;
+      gap: 24px;
+    }
+  }
 </style>
+
+<script>
+  const menuToggle = document.getElementById("menu-toggle");
+  const navContent = document.getElementById("navbar-content");
+
+  menuToggle?.addEventListener("click", () => {
+    navContent?.classList.toggle("open");
+    menuToggle?.classList.toggle("open");
+  });
+
+  const navLinks = document.querySelectorAll("#navbar-list a");
+  navLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      navContent?.classList.remove("open");
+      menuToggle?.classList.remove("open");
+    });
+  });
+</script>

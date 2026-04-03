@@ -2,19 +2,26 @@
 import { Image } from "astro:assets";
 import { getLangFromUrl, useTranslations } from "../i18n/utils";
 
-import ereaderImage from "../assets/image.png";
 import CheckIcon from "./icons/CheckIcon.astro";
+
+type AstroImageModule = { default: ImageMetadata };
 
 const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
+
+const quoteImages = import.meta.glob<AstroImageModule>("../assets/quote-*.png");
+
+const quoteImgPath = `../assets/quote-${lang}.png`;
+
+const quoteImgModule = await quoteImages[quoteImgPath]();
 ---
 
-<div class="ereader" id="ereader">
-  <div class="ereader-image reveal-right">
-    <Image src={ereaderImage} alt="E-Reader" />
+<div class="quote" id="quote">
+  <div class="quote-image reveal-right">
+    <Image src={quoteImgModule.default} alt={t("alt.quote")} />
   </div>
 
-  <div class="ereader-info">
+  <div class="quote-info">
     <div>
       <p class="subtitle reveal-left">{t("quote.subtitle")}</p>
       <h2 class="reveal" set:html={t("quote.title")} />
@@ -24,7 +31,7 @@ const t = useTranslations(lang);
       {t("quote.desc")}
     </p>
 
-    <ul class="ereader-info-list">
+    <ul class="quote-info-list">
       <li class="reveal-left"><CheckIcon /> {t("quote.feature.inventory")}</li>
       <li class="reveal-left"><CheckIcon /> {t("quote.feature.margin")}</li>
       <li class="reveal-left"><CheckIcon /> {t("quote.feature.quotes")}</li>
@@ -33,7 +40,7 @@ const t = useTranslations(lang);
 </div>
 
 <style>
-  .ereader {
+  .quote {
     background-color: var(--card-color);
 
     display: flex;
@@ -42,7 +49,7 @@ const t = useTranslations(lang);
     padding: 96px 48px;
   }
 
-  .ereader-info {
+  .quote-info {
     display: flex;
     flex-direction: column;
     gap: 32px;
@@ -50,14 +57,14 @@ const t = useTranslations(lang);
     width: 50%;
   }
 
-  .ereader-info-list {
+  .quote-info-list {
     display: flex;
     flex-direction: column;
     align-items: start;
     gap: 16px;
   }
 
-  .ereader-info-list li {
+  .quote-info-list li {
     display: flex;
     align-items: center;
     gap: 16px;
@@ -65,46 +72,49 @@ const t = useTranslations(lang);
     color: #fff;
   }
 
-  .ereader-image {
+  .quote-image {
     width: 50%;
   }
 
-  .ereader-image img {
+  .quote-image img {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: bottom;
+    object-fit: contain;
+    object-position: center;
     display: block;
   }
 
-  .ereader-info-list li:nth-child(1) {
+  .quote-info-list li:nth-child(1) {
     transition-delay: 0.1s;
   }
-  .ereader-info-list li:nth-child(2) {
+  .quote-info-list li:nth-child(2) {
     transition-delay: 0.2s;
   }
-  .ereader-info-list li:nth-child(3) {
+  .quote-info-list li:nth-child(3) {
     transition-delay: 0.3s;
   }
 
   @media (max-width: 48rem) {
-    .ereader {
+    .quote {
       flex-direction: column;
     }
 
-    .ereader-info {
+    .quote-info {
       width: 100%;
       padding: 32px;
     }
 
-    .ereader-info h2,
-    .ereader-info p {
+    .quote-info h2,
+    .quote-info p {
       max-width: 100%;
     }
 
-    .ereader-image {
+    .quote-image {
       width: 100%;
-      min-height: 350px;
+    }
+
+    .quote-image img {
+      object-fit: cover;
     }
   }
 </style>

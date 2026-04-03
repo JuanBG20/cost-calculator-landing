@@ -54,7 +54,8 @@ export const ui = {
     'footer.copyright': 'Todos los derechos reservados.',
     'footer.developer': 'Desarrollado por ',
 
-    'alt.hero': 'Calculá tu Éxito'
+    'alt.hero': 'Calculá tu Éxito',
+    'alt.quote': 'Cotización de ejemplo'
   },
   en: {
     'nav.home': 'Home',
@@ -103,6 +104,7 @@ export const ui = {
     'footer.copyright': 'All rights reserved.',
     'footer.developer': 'Developed by ',
 
-    'alt.hero': 'Domina tus lecturas'
+    'alt.hero': 'Calculate your Success',
+    'alt.quote': 'Example quote'
   }
 } as const;

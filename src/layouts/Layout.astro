@@ -21,3 +21,30 @@ import Footer from "../components/Footer.astro";
     <Footer />
   </body>
 </html>
+
+<script>
+  const observerOptions = {
+    threshold: 0.1,
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("active");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, observerOptions);
+
+  document.addEventListener("astro:page-load", () => {
+    const targets = document.querySelectorAll(
+      ".reveal, .reveal-left, .reveal-right",
+    );
+    targets.forEach((target) => observer.observe(target));
+  });
+
+  const targets = document.querySelectorAll(
+    ".reveal, .reveal-left, .reveal-right",
+  );
+  targets.forEach((target) => observer.observe(target));
+</script>
